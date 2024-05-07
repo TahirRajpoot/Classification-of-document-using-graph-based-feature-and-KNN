@@ -2,7 +2,7 @@
 import nltk
 import networkx as nx
 import numpy as np
-from preprocessor import text_preprocessing
+# from preprocessor import text_preprocessing
 from nltk.tokenize import word_tokenize
 import pandas as pd
 import re
@@ -10,6 +10,9 @@ from collections import defaultdict
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import os
+import gravis as gv
 
 
 def create_graph(text):    
@@ -104,6 +107,9 @@ def main():
     train_graphs = [(create_graph(str(row[0])), str(row[1])) for row in train_data]
     test_graphs = [(create_graph(str(row[0])), str(row[1])) for row in test_data]
 
+    graph = train_graphs[0]
+    gv.d3(graph).display() 
+
     k = 8
     predictions = []
     true_labels = []
@@ -115,11 +121,6 @@ def main():
 
     print("Classification Report:")
     print(classification_report(true_labels, predictions))
-    
-
-    conf_matrix = confusion_matrix(true_labels, predictions)
-    print(conf_matrix)
-
 
 
 if __name__ == "__main__":
