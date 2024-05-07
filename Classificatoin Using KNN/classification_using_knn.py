@@ -2,13 +2,13 @@
 import nltk
 import networkx as nx
 import numpy as np
-from preprocessor import text_preprocessing
 from nltk.tokenize import word_tokenize
 import pandas as pd
 import re
 from collections import defaultdict
 from sklearn.metrics import classification_report, confusion_matrix
 import matplotlib.pyplot as plt
+
 from sklearn.metrics import confusion_matrix
 
 
@@ -25,6 +25,7 @@ def create_graph(text):
                 G.add_edge(previous_word, word, weight=1)
         previous_word = word
     return G
+
 def k_nearest_neighbour(train_data, test_instance, k):
     
     distances = []
@@ -53,14 +54,14 @@ def find_mcs(graph_list):
 
 
 def mcs_distance(graph1, graph2):
-    
+
     mcs = find_mcs([graph1, graph2])
-    return 1 - len(mcs.nodes) / max(len(graph1.edges), len(graph2.edges))
+    return 1 - len(mcs.edges) / max(len(graph1.edges), len(graph2.edges))
 
 def main():
 
 
-
+    
     # # Read the CSV files
     # data1 = pd.read_csv('updated_science_and_education_data.csv')
     # data2 = pd.read_csv('updated_health_and_fitness_data.csv')
@@ -99,12 +100,12 @@ def main():
     # Example: Print length of train and test data
     print("Train data length:", len(train_data))
     print("Test data length:", len(test_data))
-    # for row in test_data:
+    # for row in test_data: 
     #     print(row[1])
     train_graphs = [(create_graph(str(row[0])), str(row[1])) for row in train_data]
     test_graphs = [(create_graph(str(row[0])), str(row[1])) for row in test_data]
 
-    k = 8
+    k = 5
     predictions = []
     true_labels = []
     for test_instance, category in test_graphs:
