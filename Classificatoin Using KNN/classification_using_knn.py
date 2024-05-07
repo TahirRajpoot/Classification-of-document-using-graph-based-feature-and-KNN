@@ -123,6 +123,16 @@ def main():
     print("Classification Report:")
     print(classification_report(true_labels, predictions))
 
+    # Calculate confusion matrix
+    conf_matrix = confusion_matrix(true_labels, predictions)
+
+    # Plot confusion matrix
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues", xticklabels=sorted(set(true_labels)), yticklabels=sorted(set(true_labels)))
+    plt.xlabel('Predicted Label')
+    plt.ylabel('Actual Label')
+    plt.title('Confusion Matrix')
+    plt.show()
 
 if __name__ == "__main__":
     main()
